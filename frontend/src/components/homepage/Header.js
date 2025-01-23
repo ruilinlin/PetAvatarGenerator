@@ -1,15 +1,40 @@
 import React from 'react';
-import './Header.css';
+import styles from './Header.module.css';
 
-export default function Header() {
+const Header = () => {
   return (
-    <header className="header">
-      <div className="logo-container">
-        <img src="/logo.png" alt="Logo" className="logo" />
+    <header className={styles.header}>
+      <div className={styles.headerLeft}>
+        <h1 className={styles.title}>Gallery</h1>
       </div>
-      <nav className="nav-links">
-        {/* 如果需要导航链接 */}
-      </nav>
+      
+      <div className={styles.headerCenter}>
+        <div className={styles.searchBar}>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            className={styles.searchInput}
+          />
+          <button className={styles.searchButton}>
+            🔍
+          </button>
+        </div>
+      </div>
+      
+      <div className={styles.headerRight}>
+        <button className={styles.uploadButton}>
+          Upload
+        </button>
+        <div className={styles.userProfile}>
+          {/* <img 
+            src="/default-avatar.png" 
+            alt="User" 
+            className={styles.avatar}
+          /> */}
+        </div>
+      </div>
     </header>
   );
-}
+};
+
+export default Header;

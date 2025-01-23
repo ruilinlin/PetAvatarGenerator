@@ -1,0 +1,146 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+}
+
+.user-section {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.avatar-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.avatar-text {
+  font-size: 20px;
+  color: #666;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.menu-container {
+  flex: 1;
+  padding-top: 10px;
+}
+
+.menu-item {
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.menu-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.footer {
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.footerContent {
+  font-size: 0.875rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+.logout-button {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #e5e5e5;
+}
+
+.logout-button span {
+  font-size: 16px;
+  color: #666;
+}
+
+.nav {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  margin: 0.5rem 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: #495057;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.navLink:hover {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+.icon {
+  margin-right: 1rem;
+  font-size: 1.25rem;
+}
+
+.text {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .text {
+    display: none;
+  }
+
+  .icon {
+    margin-right: 0;
+  }
+
+  .navLink {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+}

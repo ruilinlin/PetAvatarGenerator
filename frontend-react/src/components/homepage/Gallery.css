@@ -1,0 +1,22 @@
+.gallery-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 20px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  padding: 20px;
+} 

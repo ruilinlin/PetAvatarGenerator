@@ -1,13 +1,22 @@
 import React from 'react';
-import './ImageCard.css';
+import styles from './ImageCard.module.css';
 
 const ImageCard = ({ imageUrl, title }) => {
-  console.log('Image URL:', imageUrl); // 添加调试日志
+  // 确保 URL 以 .png 结尾
+  const fullImageUrl = imageUrl.endsWith('.png') ? imageUrl : `${imageUrl}.png`;
+  console.log('Image URL:', fullImageUrl);
   
   return (
-    <div className="image-card">
-      <img src={imageUrl} alt={title} className="gallery-image" />
-      <h3>{title}</h3>
+    <div className={styles.imageCard}>
+      <img
+        src={fullImageUrl}
+        alt={title}
+        className={styles.image}
+        width={300}
+        height={200}
+        style={{ objectFit: 'cover' }}
+      />
+      <h3 className={styles.title}>{title}</h3>
     </div>
   );
 };

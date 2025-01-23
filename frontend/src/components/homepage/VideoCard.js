@@ -1,21 +1,20 @@
 import React from 'react';
-import './VideoCard.css';
+import styles from './VideoCard.module.css';
 
-const VideoCard = ({ videoUrl, thumbnail, title }) => {
+const VideoCard = ({ videoUrl, title }) => {
   console.log('Video URL:', videoUrl);
   
   return (
-    <div className="video-card">
-      <video 
+    <div className={styles.videoCard}>
+      <video
+        className={styles.video}
         controls
         preload="metadata"
-        className="video-player"
-        poster={thumbnail}
       >
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <h3>{title}</h3>
+      <h3 className={styles.title}>{title}</h3>
     </div>
   );
 };
