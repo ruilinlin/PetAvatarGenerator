@@ -1,38 +1,35 @@
 import React from 'react';
 import styles from './Header.module.css';
+import { MagnifyingGlassIcon, PhotoIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 const Header = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.headerLeft}>
-        <h1 className={styles.title}>Gallery</h1>
-      </div>
+
       
       <div className={styles.headerCenter}>
         <div className={styles.searchBar}>
+        <button className={styles.searchButton}>
+        <MagnifyingGlassIcon className={styles.searchIcon} />
+        </button>
           <input 
             type="text" 
-            placeholder="Search..." 
+            placeholder="Subscribe to Create Avatar" 
             className={styles.searchInput}
           />
-          <button className={styles.searchButton}>
-            🔍
-          </button>
+
         </div>
       </div>
       
-      <div className={styles.headerRight}>
+      {/* <div className={styles.headerRight}>
         <button className={styles.uploadButton}>
           Upload
         </button>
         <div className={styles.userProfile}>
-          {/* <img 
-            src="/default-avatar.png" 
-            alt="User" 
-            className={styles.avatar}
-          /> */}
+
+
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };

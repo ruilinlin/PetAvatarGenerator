@@ -15,53 +15,74 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 使用 getStaticProps 获取 Gallery 数据
-export async function getStaticProps() {
+// 使用 getServerSideProps 支持动态搜索和分页
+export async function getServerSideProps({ query }) {
+  const { page = 1, limit = 200, type, search } = query;  // 增加默认限制到100
+  
   try {
-    const galleryRes = await fetch('http://localhost:5001/api/assets');
-    const galleryData = await galleryRes.json();
+    console.log('Fetching data from:', `http://localhost:5000/api/assets?page=${page}&limit=${limit}${type ? `&type=${type}` : ''}${search ? `&search=${search}` : ''}`);
+    
+    const res = await fetch(
+      `http://localhost:5000/api/assets?page=${page}&limit=${limit}${type ? `&type=${type}` : ''}${search ? `&search=${search}` : ''}`
+    );
+    
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    
+    const text = await res.text();
+    console.log('Raw response:', text);
+    
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.error('JSON parse error:', e);
+      throw new Error('Invalid JSON response from server');
+    }
 
-    // 确保数据是有效的
-    const validAssets = galleryData.assets?.map(asset => ({
-      id: asset.id || null,
-      title: asset.title || '',
-      type: asset.type || 'image',
-      url: asset.url || '',
-      thumbnail: asset.thumbnail || ''
-    })) || [];
+    if (!data || !data.assets) {
+      throw new Error('Invalid data structure received from server');
+    }
 
     return {
       props: {
-        initialAssets: validAssets
-      },
-      revalidate: 60
+        assets: data.assets,
+        pagination: {
+          total: data.total,
+          pages: data.pages,
+          currentPage: parseInt(page),
+          limit: parseInt(limit)
+        }
+      }
     };
   } catch (error) {
-    console.error('Error fetching assets:', error);
+    console.error('Error in getServerSideProps:', error);
     return {
       props: {
-        initialAssets: []
-      },
-      revalidate: 60
+        assets: [],
+        pagination: {
+          total: 0,
+          pages: 0,
+          currentPage: 1
+        },
+        error: error.message || 'Failed to load gallery'
+      }
     };
   }
 }
 
-// 主页组件
-export default function Home({ initialAssets = [] }) {
+export default function Home({ assets, pagination, error }) {
   return (
     <>
-      <Head>
-        <title>Gallery App</title>
-        <meta name="description" content="Gallery application" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className={`app-container ${geistSans.variable} ${geistMono.variable}`}>
         <Header />
         <div className="main-content">
-        <SideBar />
-          <Gallery initialAssets={initialAssets} />
+          <SideBar />
+          <Gallery 
+            assets={assets} 
+            pagination={pagination}
+          />
         </div>
       </div>
     </>

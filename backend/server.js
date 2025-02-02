@@ -2,7 +2,8 @@
 const express = require('express');     // Web 应用框架
 const mongoose = require('mongoose');    // MongoDB 数据库工具
 const cors = require('cors');           // 跨域资源共享中间件
-const assetsRouter = require('./routes/RoutesAssets');  // 导入资源路由处理器
+const assetsRouter = require('./routes/assets');  // 导入资源路由处理器
+const initRouter = require('./routes/init');
 
 // 创建 Express 应用实例
 const app = express();
@@ -32,6 +33,9 @@ mongoose.connection.on('disconnected', () => {
 // 设置路由
 app.use('/api/assets', assetsRouter);  // 所有 /api/assets 的请求都交给 assetsRouter 处理
 
+// 添加初始化路由（建议添加权限控制）
+app.use('/api/init', initRouter);
+
 // 添加测试路由（可选，用于检查服务器状态）
 app.get('/api/test', (req, res) => {
   res.json({ 
@@ -58,9 +62,19 @@ app.use((err, req, res, next) => {
 });
 
 // 设置服务器端口
-const PORT = process.env.PORT || 5001;  // 使用环境变量或默认 5000 端口
+const PORT = process.env.PORT || 5000;
 
 // 启动服务器
-app.listen(PORT, () => {
+app.listen(PORT, (error) => {
+  if (error) {
+    console.error('❌ Error starting server:', error);
+    return;
+  }
   console.log(`🚀 Server running on port ${PORT}`);
+}).on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use. Please try a different port.`);
+  } else {
+    console.error('❌ Server error:', error);
+  }
 });

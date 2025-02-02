@@ -1,20 +1,19 @@
 import React from 'react';
-import styles from './VideoCard.module.css';
+import styles from './Gallery.module.css';
 
 const VideoCard = ({ videoUrl, title }) => {
-  console.log('Video URL:', videoUrl);
-  
   return (
     <div className={styles.videoCard}>
-      <video
+      <video 
+        src={videoUrl}
         className={styles.video}
-        controls
-        preload="metadata"
-      >
-        <source src={videoUrl} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <h3 className={styles.title}>{title}</h3>
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls={false}
+      />
+      {/* <div className={styles.videoTitle}>{title}</div> */}
     </div>
   );
 };
